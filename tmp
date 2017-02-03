@@ -1,0 +1,40 @@
+# -*- coding: utf-8 -*-
+#from email import encoders
+from email.header import Header
+from email.mime.text import MIMEText
+from email.utils import parseaddr, formataddr
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+
+def _format_addr(s):
+    """发件人、主题信息处理"""
+    name, addr = parseaddr(s)
+    return formataddr(( \
+        Header(name, 'utf-8').encode(), \
+        addr.encode('utf-8') if isinstance(addr, unicode) else addr))
+def readfile(N=0,F='C:/python_100/openfile/ask_line.txt'):
+    """调用函数读取文本内容，有密码的返回密码"""
+    f=open(F)
+    lines = f.readlines()
+    t_lines=lines[N]
+    t_list=[]
+    for i in t_lines.split('---'):
+        t_list.append(i.strip())
+    return t_list
+def main():
+    global  s_line_point,r_line_point
+    s_line_pint_th=s_line_point
+    s_line_point+=1
+    send_list=readfile(s_line_pint_th,)
+    from_addr = send_list[0]
+    password = send_list[1]
+    smtp_server = "smtp.gmail.com"
+
+    receive_list=readfile(r_list_point,)
+
+
+
+
+s_line_point=0
+r_line_point=0
